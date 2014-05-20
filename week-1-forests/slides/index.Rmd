@@ -10,15 +10,6 @@ widgets     : []            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 
-## Schedule
-
-1. Resampling, bootstrapping, boosting and bagging (predicting return rates in Lytics event streams)
-2. Bayes rule and naive Bayes classifiers (spam detection)
-3. Dimension reduction, clustering and recommendation (building a recomendation engine)
-4. Graph analytics and social network analysis (Collaboration and importance in GitHub)
-
---- .class #id
-
 ## Linear Statistical Models
 
 Predicting output from well-defined input
@@ -89,19 +80,15 @@ In both cases, you can use an [ensemble](http://en.wikipedia.org/wiki/Ensemble_l
 
 We'll grow a random forest to predict the probability that a user will return to a stream (in the next 30 days)
 
-```
-# include a glimpse of the event format
-```
-
----
-
-## Random Forests in Action
-
 ### Hypothesis
 The best users have a predictable (regular) usage pattern for most streams.
 
 
-Formula
+Check out the gist!  https://gist.github.com/drewlanenga/cfdc7a0d4ce693983530
 
-Check out the gist!  GIST_URL
 
+---
+
+## Extra Credit Reading
+
+* For the Python enthusiasts: http://blog.yhathq.com/posts/comparing-random-forests-in-python-and-r.html

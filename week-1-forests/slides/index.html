@@ -43,22 +43,6 @@
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
   <hgroup>
-    <h2>Schedule</h2>
-  </hgroup>
-  <article data-timings="">
-    <ol>
-<li>Resampling, bootstrapping, boosting and bagging (predicting return rates in Lytics event streams)</li>
-<li>Bayes rule and naive Bayes classifiers (spam detection)</li>
-<li>Dimension reduction, clustering and recommendation (building a recomendation engine)</li>
-<li>Graph analytics and social network analysis (Collaboration and importance in GitHub)</li>
-</ol>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="class" id="id" style="background:;">
-  <hgroup>
     <h2>Linear Statistical Models</h2>
   </hgroup>
   <article data-timings="">
@@ -86,7 +70,7 @@ B   = Vector (m) of coefficients
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-3" style="background:;">
+<slide class="" id="slide-2" style="background:;">
   <article data-timings="">
     <pre><code class="r">data(iris)
 pairs(iris)
@@ -98,7 +82,7 @@ pairs(iris)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-4" style="background:;">
+<slide class="" id="slide-3" style="background:;">
   <article data-timings="">
     <pre><code class="r">data(iris)
 model &lt;- lm(Sepal.Length ~ Sepal.Width + Petal.Length + as.factor(Species), 
@@ -118,7 +102,7 @@ print(summary(model)$coefficients)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-5" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>Regression Trees</h2>
   </hgroup>
@@ -147,7 +131,7 @@ print(summary(model)$coefficients)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-6" style="background:;">
+<slide class="" id="slide-5" style="background:;">
   <hgroup>
     <h2>Scalability</h2>
   </hgroup>
@@ -168,32 +152,31 @@ print(summary(model)$coefficients)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-7" style="background:;">
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>Random Forests in Action</h2>
   </hgroup>
   <article data-timings="">
     <p>We&#39;ll grow a random forest to predict the probability that a user will return to a stream (in the next 30 days)</p>
 
-<pre><code># include a glimpse of the event format
-</code></pre>
+<h3>Hypothesis</h3>
+
+<p>The best users have a predictable (regular) usage pattern for most streams.</p>
+
+<p>Check out the gist!  <a href="https://gist.github.com/drewlanenga/cfdc7a0d4ce693983530">https://gist.github.com/drewlanenga/cfdc7a0d4ce693983530</a></p>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-8" style="background:;">
+<slide class="" id="slide-7" style="background:;">
   <hgroup>
-    <h2>Random Forests in Action</h2>
+    <h2>Extra Credit Reading</h2>
   </hgroup>
   <article data-timings="">
-    <h3>Hypothesis</h3>
-
-<p>The best users have a predictable (regular) usage pattern for most streams.</p>
-
-<p>Formula</p>
-
-<p>Check out the gist!  GIST_URL</p>
+    <ul>
+<li>For the Python enthusiasts: <a href="http://blog.yhathq.com/posts/comparing-random-forests-in-python-and-r.html">http://blog.yhathq.com/posts/comparing-random-forests-in-python-and-r.html</a></li>
+</ul>
 
   </article>
   <!-- Presenter Notes -->
@@ -205,13 +188,13 @@ print(summary(model)$coefficients)
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title='Schedule'>
+        data-slide=1 title='Linear Statistical Models'>
          1
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='Linear Statistical Models'>
+        data-slide=2 title=''>
          2
       </a>
     </li>
@@ -223,32 +206,26 @@ print(summary(model)$coefficients)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=4 title=''>
+        data-slide=4 title='Regression Trees'>
          4
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=5 title='Regression Trees'>
+        data-slide=5 title='Scalability'>
          5
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=6 title='Scalability'>
+        data-slide=6 title='Random Forests in Action'>
          6
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=7 title='Random Forests in Action'>
+        data-slide=7 title='Extra Credit Reading'>
          7
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=8 title='Random Forests in Action'>
-         8
       </a>
     </li>
   </ul>

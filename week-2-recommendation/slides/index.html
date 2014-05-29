@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Overflow</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Data Overflow">
+  <meta name="author" content="">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Data Overflow</h1>
+    <h2>Clustering, Recommendation and Collaborative Filtering</h2>
+    <p><br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Clustering</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Again, throw everything in a matrix.</p>
+
+<p>Example: Crime/Demographics of US States</p>
+
+<pre><code class="r">head(USArrests)
+</code></pre>
+
+<pre><code>##            Murder Assault UrbanPop Rape
+## Alabama      13.2     236       58 21.2
+## Alaska       10.0     263       48 44.5
+## Arizona       8.1     294       80 31.0
+## Arkansas      8.8     190       50 19.5
+## California    9.0     276       91 40.6
+## Colorado      7.9     204       78 38.7
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">plot(hclust(dist(USArrests)))
+</code></pre>
+
+<p><img src="assets/fig/dendrogram.png" title="plot of chunk dendrogram" alt="plot of chunk dendrogram" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Dimension Reduction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Multidimensional Scaling: For when we have too many columns in a matrix.</p>
+
+<p>Example: Distance between European cities</p>
+
+<pre><code>                Athens Barcelona Brussels Calais Cherbourg Cologne Copenhagen
+Barcelona         3313                                                       
+Brussels          2963      1318                                             
+Calais            3175      1326      204                                    
+Cherbourg         3339      1294      583    460                             
+Cologne           2762      1498      206    409       785                   
+Copenhagen        3276      2218      966   1136      1545     760           
+Geneva            2610       803      677    747       853    1662       1418
+Gibraltar         4485      1172     2256   2224      2047    2436       3196
+Hamburg           2977      2018      597    714      1115     460        460
+Hook of Holland   3030      1490      172    330       731     269        269
+Lisbon            4532      1305     2084   2052      1827    2290       2971
+Lyons             2753       645      690    739       789     714       1458
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Eigenvalues are magic</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">euroscale &lt;- cmdscale(eurodist, k = 11, eig = TRUE)
+plot(euroscale$eig, ylab = &quot;Eigenvalues&quot;)
+</code></pre>
+
+<p><img src="assets/fig/eigen.png" title="plot of chunk eigen" alt="plot of chunk eigen" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">print(head(euroscale$points))
+</code></pre>
+
+<pre><code>##              [,1]   [,2]    [,3]    [,4]    [,5]     [,6]    [,7]   [,8]
+## Athens    2290.27 1798.8   53.79 -103.83 -156.96   54.755  47.677  1.241
+## Barcelona -825.38  546.8 -113.86   84.59  291.44  -33.046  74.527  3.766
+## Brussels    59.18 -367.1  177.55   38.80  -95.62   40.058  -2.321 34.352
+## Calais     -82.85 -429.9  300.19  106.35 -180.45   31.337 -88.654  5.103
+## Cherbourg -352.50 -290.9  457.35  111.45 -417.50 -138.973 -46.776 23.807
+## Cologne    293.69 -405.3  360.09 -636.20  159.39   -9.561 -33.109  9.194
+##               [,9]    [,10]    [,11]
+## Athens      14.893   -6.367    4.818
+## Barcelona -225.620  -21.271   22.050
+## Brussels     2.262 -129.299   75.569
+## Calais     -87.657   86.867  156.097
+## Cherbourg -108.307   99.579 -103.623
+## Cologne    -19.417    7.925   -1.272
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">x &lt;- euroscale$points[, 1]
+y &lt;- -euroscale$points[, 2]
+plot(x, y, type = &quot;n&quot;, xlab = &quot;&quot;, ylab = &quot;&quot;, asp = 1, axes = FALSE, main = &quot;eurodist&quot;)
+</code></pre>
+
+<p><img src="assets/fig/simple.png" title="plot of chunk simple" alt="plot of chunk simple" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">text(x, y, rownames(loc), cex = 0.6)
+</code></pre>
+
+<pre><code>## Error: object &#39;loc&#39; not found
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Matrix Decomposition</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Eigenvalue decomposition, Singular value decomposition (super nice)</p>
+
+<pre><code>M = U * D * V`
+</code></pre>
+
+<pre><code>M = (m x n) matrix
+U = (m x n) matrix
+D = (n x 1) vector (eigenvalues)
+V = (n x n) matrix
+</code></pre>
+
+<ul>
+<li>Pull out howerver many dimensions as show important eigenvalues</li>
+<li><code>U</code> yields a matrix with user vectors (preference) as row vectors</li>
+<li><code>V</code> yields a matrix with item vectors (similarity) as column vectors</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Recommendation</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Typically based off of a user-item matrix</p>
+
+<pre><code>        Item1   Item2   Item3   Item4   Item5
+User1      0        1       1       0       1
+User2      0        1       0       0       1
+User3      0        1       1       0       0
+User4      1        0       0       0       0
+</code></pre>
+
+<p>Decompose matrix to get user vectors and role vectors</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Vector Similarity</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Use the cosine between two vectors to determine how similar they are</p>
+
+<p><img src="http://upload.wikimedia.org/math/f/3/6/f369863aa2814d6e283f859986a1574d.png" alt="Cosine Similarity"></p>
+
+<p><a href="http://en.wikipedia.org/wiki/Cosine_similarity">http://en.wikipedia.org/wiki/Cosine_similarity</a></p>
+
+<h3>Recommendation</h3>
+
+<ul>
+<li>Find user vectors that are similar</li>
+<li>Find item vectors that are similar</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">data(&quot;MovieLense&quot;)
+MovieLense100 &lt;- MovieLense[rowCounts(MovieLense) &gt; 100, ]
+train &lt;- MovieLense100[1:50]
+rec &lt;- Recommender(train, method = &quot;POPULAR&quot;)
+
+## create top-N recommendations for new users
+pre &lt;- predict(rec, MovieLense100[101:102], n = 5)
+print(as(pre, &quot;list&quot;))
+</code></pre>
+
+<pre><code>## [[1]]
+## [1] &quot;Titanic (1997)&quot;               &quot;Sting, The (1973)&quot;           
+## [3] &quot;Alien (1979)&quot;                 &quot;Schindler&#39;s List (1993)&quot;     
+## [5] &quot;2001: A Space Odyssey (1968)&quot;
+## 
+## [[2]]
+## [1] &quot;Titanic (1997)&quot;                  &quot;Empire Strikes Back, The (1980)&quot;
+## [3] &quot;Usual Suspects, The (1995)&quot;      &quot;Schindler&#39;s List (1993)&quot;        
+## [5] &quot;Braveheart (1995)&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Resources</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Singular Value Decomposition: <a href="http://en.wikipedia.org/wiki/Singular_value_decomposition">http://en.wikipedia.org/wiki/Singular_value_decomposition</a></li>
+<li>Recommendation at <strong>Spotify</strong>: <a href="http://vimeo.com/57900625">http://vimeo.com/57900625</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Clustering'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title=''>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Dimension Reduction'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Eigenvalues are magic'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title=''>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title=''>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Matrix Decomposition'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Recommendation'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Vector Similarity'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title=''>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Resources'>
+         11
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

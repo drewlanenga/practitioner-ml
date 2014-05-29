@@ -1,0 +1,158 @@
+---
+title       : Data Overflow
+subtitle    : Clustering, Recommendation and Collaborative Filtering
+author      : 
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## Clustering
+
+Again, throw everything in a matrix.
+
+Example: Crime/Demographics of US States
+```{r}
+head(USArrests)
+```
+
+---
+
+```{r dendrogram, fig.width = 14, fig.align = 'center', message = F}
+plot(hclust(dist(USArrests)))
+```
+
+---
+
+## Dimension Reduction
+
+Multidimensional Scaling: For when we have too many columns in a matrix.
+
+Example: Distance between European cities
+```
+                Athens Barcelona Brussels Calais Cherbourg Cologne Copenhagen
+Barcelona         3313                                                       
+Brussels          2963      1318                                             
+Calais            3175      1326      204                                    
+Cherbourg         3339      1294      583    460                             
+Cologne           2762      1498      206    409       785                   
+Copenhagen        3276      2218      966   1136      1545     760           
+Geneva            2610       803      677    747       853    1662       1418
+Gibraltar         4485      1172     2256   2224      2047    2436       3196
+Hamburg           2977      2018      597    714      1115     460        460
+Hook of Holland   3030      1490      172    330       731     269        269
+Lisbon            4532      1305     2084   2052      1827    2290       2971
+Lyons             2753       645      690    739       789     714       1458
+```
+
+---
+
+## Eigenvalues are magic
+
+```{r eigen, fig.width = 8, fig.height = 6, fig.align = 'center', message = FALSE}
+euroscale <- cmdscale(eurodist, k = 11, eig = TRUE)
+plot(euroscale$eig, ylab = 'Eigenvalues')
+```
+
+---
+
+```{r}
+print(head(euroscale$points))
+```
+
+---
+
+```{r simple, fig.width = 8, fig.height = 8, fig.align = 'center', message = F}
+x <-  euroscale$points[, 1]
+y <- -euroscale$points[, 2]
+plot(x, y, type = "n", xlab = "", ylab = "", asp = 1, axes = FALSE, main = "eurodist")
+text(x, y, rownames(loc), cex = 0.6)
+```
+
+
+
+---
+
+## Matrix Decomposition
+
+Eigenvalue decomposition, Singular value decomposition (super nice)
+
+
+```
+M = U * D * V`
+```
+
+```
+M = (m x n) matrix
+U = (m x n) matrix
+D = (n x 1) vector (eigenvalues)
+V = (n x n) matrix
+```
+
+* Pull out howerver many dimensions as show important eigenvalues
+* `U` yields a matrix with user vectors (preference) as row vectors
+* `V` yields a matrix with item vectors (similarity) as column vectors
+
+---
+
+
+## Recommendation
+
+Typically based off of a user-item matrix
+
+```
+        Item1   Item2   Item3   Item4   Item5
+User1      0        1       1       0       1
+User2      0        1       0       0       1
+User3      0        1       1       0       0
+User4      1        0       0       0       0
+```
+
+Decompose matrix to get user vectors and role vectors
+
+
+---
+
+## Vector Similarity
+
+Use the cosine between two vectors to determine how similar they are
+
+![Cosine Similarity](http://upload.wikimedia.org/math/f/3/6/f369863aa2814d6e283f859986a1574d.png)
+
+http://en.wikipedia.org/wiki/Cosine_similarity
+
+
+### Recommendation
+
+* Find user vectors that are similar
+* Find item vectors that are similar
+
+---
+
+```{r echo = FALSE, message = FALSE}
+library(recommenderlab)
+```
+
+```{r}
+data("MovieLense")
+MovieLense100 <- MovieLense[rowCounts(MovieLense) >100,]
+train <- MovieLense100[1:50]
+rec <- Recommender(train, method = "POPULAR")
+
+## create top-N recommendations for new users
+pre <- predict(rec, MovieLense100[101:102], n = 5)
+print(as(pre, "list"))
+```
+
+
+---
+
+## Resources
+
+* Singular Value Decomposition: http://en.wikipedia.org/wiki/Singular_value_decomposition
+* Recommendation at **Spotify**: http://vimeo.com/57900625
+
+

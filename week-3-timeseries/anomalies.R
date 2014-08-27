@@ -54,12 +54,12 @@ anomaly.functions <- list(
 	list(
 		name = "z-score",
 		fun = anomaly.threesigma,
-		weight = 0.01
+		weight = 1.00
 	),
 	list(
 		name = "Kolmogorov-Smirnov",
 		fun = anomaly.ks,
-		weight = 0.01
+		weight = 1.00
 	),
 	list(
 		name = "Diff CDF",

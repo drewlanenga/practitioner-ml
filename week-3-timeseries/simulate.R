@@ -75,7 +75,6 @@ score.series <- function(series, window.reference, window.active, anomaly.functi
 	w <- unlist(lapply(anomaly.functions, function(x){ x$weight }))
 
 	all.probs <- apply(probs, 1, weighted.mean, w = w)
-	#all.probs <- rowMeans(probs)
 	probs <- cbind(probs, all.probs)
 
 	lwds <- rep(1, ncol(probs))
@@ -84,7 +83,7 @@ score.series <- function(series, window.reference, window.active, anomaly.functi
 	cols <- 1:ncol(probs) + 1 # offset colors from 1 -- don't do black!
 
 	#dev.new()
-	par(mfrow = c(1, 1))
+	par(mfrow = c(2, 1))
 
 	plot(series, type = 'l', ylim = c(0, max(series) + (diff(range(series)) * 0.4)),
 		ylab = "Segment Size", xlab = "", main = "Random Walk",
@@ -105,8 +104,13 @@ score.series <- function(series, window.reference, window.active, anomaly.functi
 
 dev.new()
 
-series <- random.walk(120, 20000, rnorm, mean = 0, sd = size * 0.05)
+series <- random.walk(120, 20000, rnorm, mean = 0, sd = 20000 * 0.05)
 
 score.series(series, 14, 7, anomaly.functions)
 score.series(series, 7, 2, anomaly.functions)
+
+
+
+score.series(series, 14, 7, anomaly.functions)
+score.series(series, 10, 2, anomaly.functions)
 

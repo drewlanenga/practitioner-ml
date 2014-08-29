@@ -109,8 +109,6 @@ series <- random.walk(120, 20000, rnorm, mean = 0, sd = 20000 * 0.05)
 score.series(series, 14, 7, anomaly.functions)
 score.series(series, 7, 2, anomaly.functions)
 
-
-
 score.series(series, 14, 7, anomaly.functions)
 score.series(series, 10, 2, anomaly.functions)
 

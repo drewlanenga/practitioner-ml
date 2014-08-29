@@ -50,12 +50,40 @@ anomaly.diffcdf <- function(series.reference, series.active) {
 	return( abs(0.5 - reference.ecdf(active.diff)) * 2)
 }
 
+anomaly.prob <- function(series.reference, series.active) {
+	pdiff <- (mean(series.active) - mean(series.reference)) / mean(series.reference)
+	return( 1 / (1 + exp(-(6*pdiff)) ))
+}
+
+anomaly.rank <- function(series.reference, series.active) {
+	refsize <- length(series.reference)
+	vector <- append(series.reference, series.active)
+	totsize <- length(vector)
+
+	samp <- rank(abs(diff(vector)), ties.method="min")
+	samp <- samp[refsize:(totsize-1)]
+	summ <- sum(samp)
+	print(summ)
+
+	i <- count <- 0
+	tempsumm <- 0.0
+
+	while (i < 100) {
+		temp <- rank(abs(diff(sample(vector))), ties.method="min")
+		
+		temp <- temp[refsize:(totsize-1)]
+		tempsumm <- sum(temp)
+		print(tempsumm)
+		
+		if (tempsumm < summ) {
+			count <- count + 1
+		}
+		i <- i + 1
+	}
+	return (count / 100)
+}
+
 anomaly.functions <- list(
-	list(
-		name = "z-score",
-		fun = anomaly.threesigma,
-		weight = 1.00
-	),
 	list(
 		name = "Kolmogorov-Smirnov",
 		fun = anomaly.ks,
@@ -64,6 +92,11 @@ anomaly.functions <- list(
 	list(
 		name = "Diff CDF",
 		fun = anomaly.diffcdf,
+		weight = 1.0
+	),
+	list(
+		name = "Rank",
+		fun = anomaly.rank,
 		weight = 1.0
 	)
 )

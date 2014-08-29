@@ -18,12 +18,15 @@ cap <- function(x, x.min, x.max) {
 	return( max(min(x, x.max), x.min) )
 }
 
-get.series.index <- function(n, window) {
-	index <- 1:n
-	if(window < n) {
-		index <- (n - window + 1):n
-	}
-	return( index )
+get.series.index <- function(n, window.reference, window.active) {
+	window.total <- window.reference + window.active
+
+	active.start <- n - window.active + 1
+	active.index <- active.start:n
+
+	reference.index <- (active.start - window.reference):(active.start - 1)
+
+	return( list(active = active.index, reference = reference.index) )
 }
 
 anomaly.threesigma <- function(series.reference, series.active) {

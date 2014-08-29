@@ -54,19 +54,18 @@ source("anomalies.R")
 score.series <- function(series, window.reference, window.active, anomaly.functions) {
 	probs <- matrix(0, nrow = length(series), ncol = length(anomaly.functions))
 	
-	window.index <- window.active:length(series)
+	window.index <- (window.active + window.reference):length(series)
 	print(window.index)
 	#window.index <- get.series.index(length(series), window.reference)
 	for(i in window.index) {
-		index.reference <- get.series.index(i, window.reference)
-		index.active <- get.series.index(i, window.active)
+		index <- get.series.index(i, window.reference, window.active)
 
-		if( length(index.reference) == length(index.active) ) {
+		if( length(index$reference) == length(index$active) ) {
 			probs[i, ] <- rep(0, ncol(probs))
 		} else {
 			j <- 1
 			for(anomaly.function in anomaly.functions) {
-				probs[i, j] <- cap(anomaly.function$fun(series[index.reference], series[index.active]), 0, 1)
+				probs[i, j] <- cap(anomaly.function$fun(series[index$reference], series[index$active]), 0, 1)
 				j <- j + 1
 			}
 		}

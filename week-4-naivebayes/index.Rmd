@@ -57,9 +57,13 @@ posterior = ---------------------
 
 A *naive* Bayesian classifier assumes that event outcomes are independent.
 
---- 
+--- .shout 
 
-## Example: Document Classification
+## Example
+
+---
+
+## Document Classification
 
 In NLP, a bag-of-words model *tokenizes* text and throws each token in a proverbial bag.
 
@@ -71,7 +75,7 @@ In NLP, a bag-of-words model *tokenizes* text and throws each token in a proverb
 
 ---
 
-## Example: Document Classification
+## Document Classification
 
 Let's add classes to each document.
 
@@ -87,6 +91,8 @@ Let's predict the class for a new document: "Aaron's dog has fleas"
 
 ---
 
+## Document Classification
+
 ```
           P(B|A) * P(A)
 P(A|B) = ---------------
@@ -101,7 +107,7 @@ P(Class|Doc) = -------------------------
 
 ---
 
-Doc: "aaron", "dog", "fleas" --> 1/27
+## "aaron", "dog", "fleas"
 
 | aaron | dog  | fleas |
 | ----- | ---- | ----- |
@@ -117,7 +123,7 @@ Predicted Class: ?
 
 ---
 
-Doc: "aaron", "dog", "fleas" --> 1/27
+## "aaron", "dog", "fleas"
 
 | aaron | dog  | fleas |
 | ----- | ---- | ----- |
@@ -135,9 +141,7 @@ Predicted Class: Nothing! Too many zeros.
 
 ## Smoothing
 
-*Additive smoothers* help prevent 0's from killing everything.  A constant is added to each class.
-
-When the smoother is 1, it's called a *Laplace smoother*.
+*Additive smoothers* help prevent 0's from killing everything.  A constant is added to each class.  When the smoother is 1, it's called a *Laplace smoother*.
 
 Predicted class with Laplace smoothing: Vet
 

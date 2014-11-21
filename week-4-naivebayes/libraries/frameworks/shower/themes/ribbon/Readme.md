@@ -1,17 +1,15 @@
 # Ribbon theme for Shower
 
-Default theme for [shower](https://github.com/shower/shower) engine, part of [template](https://github.com/shower/template).
+Follow [@shower_me](https://twitter.com/shower_me) for support and updates
 
-To see Shower in action:
+To see Ribbon theme for Shower in action:
 
-- Open [shwr.me](http://shwr.me/)
+- Open [shwr.me/shower/themes/ribbon](http://shwr.me/shower/themes/ribbon/)
 - Click any slide to enter presentation mode
-- Use arrow keys to navigate
+- Use arrow keys or presenter remote to navigate
 - Press `Esc` to exit presentation mode
 
-See more details in Shower [readme](https://github.com/shower/shower#readme). Follow [@shower_me](http://twitter.com/shower_me/) for support and updates. Use [Issues](https://github.com/shower/shower/issues) for sharing your ideas, bugs and feature requests.
-
-**Please note** this repository is for development only. To get Shower please use [template](https://github.com/shower/template) or [shower](https://github.com/shower/shower) engine.
+Part of [Shower presentation template](https://github.com/shower/shower/). See [Wiki](https://github.com/shower/shower/wiki) for more information how to use Shower.
 
 ---
-Licensed under [MIT License](http://en.wikipedia.org/wiki/MIT_License), see [license page](shower/wiki/MIT-License) for details.
+Licensed under [MIT License](http://en.wikipedia.org/wiki/MIT_License), see [license page](https://github.com/shower/shower/wiki/MIT-License) for details.

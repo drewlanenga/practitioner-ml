@@ -112,9 +112,15 @@ posterior = ---------------------
 
   </div>
 </section>
-<section class="slide " id="slide-6">
+<section class="slide shout" id="slide-6">
   <div>
-    <h2>Example: Document Classification</h2>
+    <h2>Example</h2>
+    
+  </div>
+</section>
+<section class="slide " id="slide-7">
+  <div>
+    <h2>Document Classification</h2>
     <p>In NLP, a bag-of-words model <em>tokenizes</em> text and throws each token in a proverbial bag.</p>
 
 <table><thead>
@@ -155,9 +161,9 @@ posterior = ---------------------
 
   </div>
 </section>
-<section class="slide " id="slide-7">
+<section class="slide " id="slide-8">
   <div>
-    <h2>Example: Document Classification</h2>
+    <h2>Document Classification</h2>
     <p>Let&#39;s add classes to each document.</p>
 
 <table><thead>
@@ -204,9 +210,9 @@ posterior = ---------------------
 
   </div>
 </section>
-<section class="slide " id="slide-8">
+<section class="slide " id="slide-9">
   <div>
-    <h2></h2>
+    <h2>Document Classification</h2>
     <pre><code>          P(B|A) * P(A)
 P(A|B) = ---------------
               P(B)
@@ -219,12 +225,10 @@ P(Class|Doc) = -------------------------
 
   </div>
 </section>
-<section class="slide " id="slide-9">
+<section class="slide " id="slide-10">
   <div>
-    <h2></h2>
-    <p>Doc: &quot;aaron&quot;, &quot;dog&quot;, &quot;fleas&quot; --&gt; 1/27</p>
-
-<table><thead>
+    <h2>&quot;aaron&quot;, &quot;dog&quot;, &quot;fleas&quot;</h2>
+    <table><thead>
 <tr>
 <th>aaron</th>
 <th>dog</th>
@@ -261,12 +265,10 @@ P(Class|Doc) = -------------------------
 
   </div>
 </section>
-<section class="slide " id="slide-10">
+<section class="slide " id="slide-11">
   <div>
-    <h2></h2>
-    <p>Doc: &quot;aaron&quot;, &quot;dog&quot;, &quot;fleas&quot; --&gt; 1/27</p>
-
-<table><thead>
+    <h2>&quot;aaron&quot;, &quot;dog&quot;, &quot;fleas&quot;</h2>
+    <table><thead>
 <tr>
 <th>aaron</th>
 <th>dog</th>
@@ -303,12 +305,10 @@ P(Class|Doc) = -------------------------
 
   </div>
 </section>
-<section class="slide " id="slide-11">
+<section class="slide " id="slide-12">
   <div>
     <h2>Smoothing</h2>
-    <p><em>Additive smoothers</em> help prevent 0&#39;s from killing everything.  A constant is added to each class.</p>
-
-<p>When the smoother is 1, it&#39;s called a <em>Laplace smoother</em>.</p>
+    <p><em>Additive smoothers</em> help prevent 0&#39;s from killing everything.  A constant is added to each class.  When the smoother is 1, it&#39;s called a <em>Laplace smoother</em>.</p>
 
 <p>Predicted class with Laplace smoothing: Vet</p>
 
@@ -319,7 +319,7 @@ P(Class|Doc) = -------------------------
 
   </div>
 </section>
-<section class="slide " id="slide-12">
+<section class="slide " id="slide-13">
   <div>
     <h2>Multiclass Classification</h2>
     <p>Multinomial classifiers perform a one-of-many classification.</p>

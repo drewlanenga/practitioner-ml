@@ -1,0 +1,345 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<title>Naive Bayesian Classification</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=1274, user-scalable=no">
+	<meta name="description" content="Naive Bayesian Classification">
+	<meta name="author" content="Drew Lanenga">
+	<meta name="generator" content="slidify" />
+	<!-- LOAD STYLE SHEETS -->
+	<link rel="stylesheet" href="libraries/frameworks/shower/themes/ribbon/styles/screen.css">
+	<link rel="stylesheet" media="print"
+	  href="libraries/frameworks/shower/themes/ribbon/styles/print.css">
+	<link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css">  <link rel="stylesheet" href = "assets/css/ribbons.css">
+
+	<!--
+		To apply styles to the certain slides
+		use slide ID to get needed elements
+		-->
+	<style>
+		#Cover h2 {
+      margin:65px 0 0;
+			color:#FFF;
+			text-align:center;
+			font-size:70px;
+			}
+		#FitToWidth h2,
+		#FitToHeight h2 {
+			color:#FFF;
+			text-align:center;
+			}
+	</style> 
+</head>
+<body class="list">
+  <header class="caption">
+  	<h1>Naive Bayesian Classification</h1>
+	</header>
+  <section class="slide shout" id="slide-1">
+  <div>
+    <h2>Bayesian Probability</h2>
+    
+  </div>
+</section>
+<section class="slide " id="slide-2">
+  <div>
+    <h2>Bayesian Probability</h2>
+    <blockquote>
+<p>A Bayesian is one who, vaguely expecting a horse, and catching a glimpse of a donkey, strongly believes he has seen a mule.
+                     - <strong>Karl Pearson</strong></p>
+</blockquote>
+
+<pre><code>             likelihood * prior
+posterior = ---------------------
+                  evidence
+</code></pre>
+
+  </div>
+</section>
+<section class="slide " id="slide-3">
+  <div>
+    <h2>Vocabulary</h2>
+    <ul>
+<li><strong>Prior</strong>
+
+<ul>
+<li>Prior expectation of the probability of the outcome of an event</li>
+<li>Can be informed by previous data, expert opinion, etc.</li>
+</ul></li>
+<li><strong>Likelihood</strong>
+
+<ul>
+<li>What&#39;s the probability of getting what you got?</li>
+<li>It&#39;s the <strong>joint probability</strong> of the realized events</li>
+</ul></li>
+<li><strong>Posterior</strong>
+
+<ul>
+<li>Probability based on information from both prior and likelihood</li>
+</ul></li>
+</ul>
+
+  </div>
+</section>
+<section class="slide " id="slide-4">
+  <div>
+    <h2>Vocabulary</h2>
+    <ul>
+<li><strong>Joint Probability &mdash; P(A, B)</strong>
+
+<ul>
+<li>The probability of the outcome of multiple events <em>together</em></li>
+<li>Events may or may not be independent.</li>
+</ul></li>
+<li><strong>Conditional Probability &mdash; P(A|B)</strong>
+
+<ul>
+<li>The probability of an event, <em>given</em> that the outcome of another event occurs</li>
+</ul></li>
+<li><strong>Marginal Probability &mdash; P(A)</strong>
+
+<ul>
+<li>The <em>unconditional</em> probability of an event</li>
+</ul></li>
+</ul>
+
+  </div>
+</section>
+<section class="slide " id="slide-5">
+  <div>
+    <h2>Naive Bayes</h2>
+    <p>A <em>naive</em> Bayesian classifier assumes that event outcomes are independent.</p>
+
+  </div>
+</section>
+<section class="slide " id="slide-6">
+  <div>
+    <h2>Example: Document Classification</h2>
+    <p>In NLP, a bag-of-words model <em>tokenizes</em> text and throws each token in a proverbial bag.</p>
+
+<table><thead>
+<tr>
+<th></th>
+<th>aaron</th>
+<th>cat</th>
+<th>dog</th>
+<th>ebola</th>
+<th>fleas</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>My dog has fleas</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>My cat has ebola</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Aaron has ebola</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody></table>
+
+  </div>
+</section>
+<section class="slide " id="slide-7">
+  <div>
+    <h2>Example: Document Classification</h2>
+    <p>Let&#39;s add classes to each document.</p>
+
+<table><thead>
+<tr>
+<th></th>
+<th>aaron</th>
+<th>cat</th>
+<th>dog</th>
+<th>ebola</th>
+<th>fleas</th>
+<th>CLASS</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>My dog has fleas</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>vet</td>
+</tr>
+<tr>
+<td>My cat has ebola</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>vet</td>
+</tr>
+<tr>
+<td>Aaron has ebola</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>cdc</td>
+</tr>
+</tbody></table>
+
+<p>Let&#39;s predict the class for a new document: &quot;Aaron&#39;s dog has fleas&quot;</p>
+
+  </div>
+</section>
+<section class="slide " id="slide-8">
+  <div>
+    <h2></h2>
+    <pre><code>          P(B|A) * P(A)
+P(A|B) = ---------------
+              P(B)
+</code></pre>
+
+<pre><code>                P(Doc|Class) * P(Class)
+P(Class|Doc) = -------------------------
+                         P(Doc)
+</code></pre>
+
+  </div>
+</section>
+<section class="slide " id="slide-9">
+  <div>
+    <h2></h2>
+    <p>Doc: &quot;aaron&quot;, &quot;dog&quot;, &quot;fleas&quot; --&gt; 1/27</p>
+
+<table><thead>
+<tr>
+<th>aaron</th>
+<th>dog</th>
+<th>fleas</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>0.33</td>
+<td>0.33</td>
+<td>0.33</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th></th>
+<th>P(Class)</th>
+<th>P(Doc&#124;Class)</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>vet</td>
+<td>0.66</td>
+<td>0 * 0.5 * 0.5</td>
+</tr>
+<tr>
+<td>cdc</td>
+<td>0.33</td>
+<td>1 * 0 * 0</td>
+</tr>
+</tbody></table>
+
+<p>Predicted Class: ?</p>
+
+  </div>
+</section>
+<section class="slide " id="slide-10">
+  <div>
+    <h2></h2>
+    <p>Doc: &quot;aaron&quot;, &quot;dog&quot;, &quot;fleas&quot; --&gt; 1/27</p>
+
+<table><thead>
+<tr>
+<th>aaron</th>
+<th>dog</th>
+<th>fleas</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>0.33</td>
+<td>0.33</td>
+<td>0.33</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th></th>
+<th>P(Class)</th>
+<th>P(Doc&#124;Class)</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>vet</td>
+<td>0.66</td>
+<td>0 * 0.5 * 0.5</td>
+</tr>
+<tr>
+<td>cdc</td>
+<td>0.33</td>
+<td>1 * 0 * 0</td>
+</tr>
+</tbody></table>
+
+<p>Predicted Class: Nothing! Too many zeros.</p>
+
+  </div>
+</section>
+<section class="slide " id="slide-11">
+  <div>
+    <h2>Smoothing</h2>
+    <p><em>Additive smoothers</em> help prevent 0&#39;s from killing everything.  A constant is added to each class.</p>
+
+<p>When the smoother is 1, it&#39;s called a <em>Laplace smoother</em>.</p>
+
+<p>Predicted class with Laplace smoothing: Vet</p>
+
+<ul>
+<li>Vet: 54.2%</li>
+<li>CDC: 45.8%</li>
+</ul>
+
+  </div>
+</section>
+<section class="slide " id="slide-12">
+  <div>
+    <h2>Multiclass Classification</h2>
+    <p>Multinomial classifiers perform a one-of-many classification.</p>
+
+<p>What if you want if you should call the vet <em>and</em> the CDC when your cat has ebola?</p>
+
+<p><a href="https://github.com/drewlanenga/multibayes">https://github.com/drewlanenga/multibayes</a> performs <strong>multiclass</strong> classifcation &mdash; many-of-many</p>
+
+  </div>
+</section>
+  <div class="progress">
+    <div></div>
+  </div>
+	<script src="libraries/frameworks/shower/shower.js"></script>
+	<!-- LOAD HIGHLIGHTER JS FILES -->
+	<script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+	 
+		<!-- Copyright © 2010–2012 Vadim Makeev — pepelsbey.net -->
+	<!-- Photos by John Carey — fiftyfootshadows.net -->
+</body>
+</html>
